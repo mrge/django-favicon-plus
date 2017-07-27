@@ -9,11 +9,11 @@ register = template.Library()
 @register.simple_tag(takes_context=True)
 def placeFaviconId(context, fav_id):
     """
-    Gets Favicon-URL for the Model.
+    Gets Favicon-URL for by Favicon ID.
 
     Template Syntax:
 
-        {% placeFavicon %}
+        {% placeFaviconId <id> %}
 
     """
     fav = Favicon.objects.filter(pk=fav_id).first()
@@ -35,5 +35,13 @@ def placeFaviconId(context, fav_id):
 
 @register.simple_tag(takes_context=True)
 def placeFavicon(context):
+    """
+    Gets Favicon-URL for the Model.
+
+    Template Syntax:
+
+        {% placeFavicon %}
+
+    """
     fav_id = Favicon.objects.filter(isFavicon=True).first().pk
     placeFaviconId(context, fav_id):
