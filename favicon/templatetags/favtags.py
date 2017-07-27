@@ -44,4 +44,5 @@ def placeFavicon(context):
 
     """
     fav_id = Favicon.objects.filter(isFavicon=True).first().pk
-    placeFaviconId(context, fav_id):
+    
+    return placeFaviconId(context, fav_id)
