@@ -7,7 +7,7 @@ register = template.Library()
 
 
 @register.simple_tag(takes_context=True)
-def placeFavicon(context):
+def placeFaviconId(context, fav_id):
     """
     Gets Favicon-URL for the Model.
 
@@ -16,7 +16,7 @@ def placeFavicon(context):
         {% placeFavicon %}
 
     """
-    fav = Favicon.objects.filter(isFavicon=True).first()
+    fav = Favicon.objects.filter(pk=fav_id).first()
     if not fav:
         return mark_safe('<!-- no favicon -->')
     html = ''
@@ -31,3 +31,9 @@ def placeFavicon(context):
         default_fav.rel, default_fav.size, default_fav.size, default_fav.faviconImage.url)
 
     return mark_safe(html)
+
+
+@register.simple_tag(takes_context=True)
+def placeFavicon(context):
+    fav_id = Favicon.objects.filter(isFavicon=True).first().pk
+    placeFaviconId(context, fav_id):
