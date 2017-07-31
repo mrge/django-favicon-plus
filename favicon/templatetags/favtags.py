@@ -43,6 +43,7 @@ def placeFavicon(context):
         {% placeFavicon %}
 
     """
-    fav_id = Favicon.objects.filter(isFavicon=True).first().pk
-    
-    return placeFaviconId(context, fav_id)
+    fav = Favicon.objects.filter(isFavicon=True).first()
+    if not fav:
+        return mark_safe('<!-- no favicon -->')
+    return placeFaviconId(context, fav.pk)
